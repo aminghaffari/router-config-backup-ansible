@@ -1,0 +1,17 @@
+## Ansible Hostd file for my lab
+
+[all:vars]
+ansible_user=test
+ansible_ssh_pass=test
+ansible_network_os=ios
+ansible_connection=network_cli
+
+[Routers]
+R1 ansible_host=192.168.133.151
+#R2 ansible_host=192.168.21.152
+
+[Switches]
+SW1 ansible_host=192.168.21.161
+SW2 ansible_host=192.168.21.162
+
+

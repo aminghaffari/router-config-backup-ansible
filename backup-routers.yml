@@ -1,0 +1,21 @@
+---
+- name: Backup Router Configurations
+  hosts: Routers
+  gather_facts: no  # Disable gathering facts (if ansible_date_time is not available)
+
+  vars:
+    current_date: "{{ lookup('pipe', 'date +%Y-%m-%d_%H-%M') }}"
+
+  tasks:
+    - name: Fetch Running Configuration
+      ios_command:
+        commands:
+          - show running-config
+      register: router_config_output
+
+    - name: Save Configuration to Backup File
+      copy:
+        content: "{{ router_config_output.stdout[0] }}"
+        dest: "./backups/{{ inventory_hostname }}-config-{{ current_date }}.txt"
+
+
